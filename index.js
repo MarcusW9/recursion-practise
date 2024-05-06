@@ -97,13 +97,37 @@ console.log(replicate(3, 5)) // [5, 5, 5]
 // The Fibonacci Sequence, is a numerical sequence where each number is the sum of the two numbers before it. 
 // Eg. 0, 1, 1, 2, 3, 5, 8, 13 are the first eight digits in the sequence.
 
-function fibonacci(num) {
-    if (num < 2) {
-        return num
+function fibs(num) {
+    let arr = []
+    let prev = 0
+    let curr = 1
+    let temp = 0
+
+    for (let i = 0; i < num; i++) {
+        arr.push(prev)
+        temp = curr
+        curr = curr + prev
+        prev = temp
     }
-    return (fibonacci(num - 1) + fibonacci(num - 2))
+    return arr
 }
 
-console.log(fibonacci(8))
+console.log(fibs(8))
 
+function fibsRec(num) {
+    fibsRec.arr = fibsRec.arr || [0, 1, 1]
 
+    if (num === 0) return [0]
+    if (num === 0) return [0, 1]
+
+    const len = fibsRec.arr.length
+    const next = fibsRec.arr[len - 2] + fibsRec.arr[len - 1]
+
+    if (num > len) {
+        fibsRec.arr.push(next)
+        fibsRec(num)
+    }
+    return fibsRec.arr
+}
+
+console.log(fibsRec(8))
